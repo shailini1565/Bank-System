@@ -1,10 +1,9 @@
 package com.banking.Banksystem.dto;
 
 public class WithdrawalBalanceDTO {
-    private int balance;
     private String accountNo;
-
-    private int amount;
+    private int balance;
+    private int withdrawalAmount;
 
     public String getAccountNo() {
         return accountNo;
@@ -14,12 +13,12 @@ public class WithdrawalBalanceDTO {
         this.accountNo = accountNo;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getWithdrawalAmount() {
+        return withdrawalAmount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setWithdrawalAmount(int withdrawalAmount) {
+        this.withdrawalAmount = withdrawalAmount;
     }
 
     public int getBalance() {
@@ -33,8 +32,9 @@ public class WithdrawalBalanceDTO {
     public WithdrawalBalanceDTO() {
     }
 
-    public WithdrawalBalanceDTO( String accountNo,int balance) {
-        this.balance = balance;
+    public WithdrawalBalanceDTO( String accountNo,int balance, int withdrawalAmount) {
         this.accountNo = accountNo;
+        this.balance = balance;
+        this.withdrawalAmount = withdrawalAmount;
     }
 }

@@ -1,6 +1,6 @@
 package com.banking.Banksystem.service;
 
-import com.banking.Banksystem.dto.BalanceDTO;
+import com.banking.Banksystem.dto.DepositBalanceDTO;
 import com.banking.Banksystem.model.User;
 import com.banking.Banksystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,17 @@ public class DepositService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity<Object>afterDepositBalanceAmount(BalanceDTO balanceDTO){
+    public ResponseEntity<Object>afterDepositBalanceAmount(DepositBalanceDTO depositBalanceDTO){
         System.out.println("In Deposit Service");
-        if(userRepository.existsByAccountNo(balanceDTO.getAccountNo())){
+        if(userRepository.existsByAccountNo(depositBalanceDTO.getAccountNo())){
 
-            User user =userRepository.findUserByAccountNo(balanceDTO.getAccountNo());
-            int amount= user.getBalance()+ balanceDTO.getAmount();
-            User updateUser= new User(user.getFirstName(), user.getLastName(), user.getAddress(), user.getUsername(), user.getPassword(),
-                    user.getAccountNo(), amount);
-            userRepository.delete(user);
-            userRepository.save(updateUser);
-            System.out.println("Updated Amount: " + updateUser.getBalance());
-            BalanceDTO newBalanceDTO = new BalanceDTO(updateUser.getAccountNo(), updateUser.getBalance());
+            User user =userRepository.findUserByAccountNo(depositBalanceDTO.getAccountNo());
+            int depositAmount= user.getBalance()+ depositBalanceDTO.getAddAmount();
+            user.setBalance(depositAmount);
+            userRepository.save(user);
+            userRepository.save(user);
+            System.out.println("Updated Amount: " + user.getBalance());
+            DepositBalanceDTO newBalanceDTO = new DepositBalanceDTO(user.getAccountNo(), user.getBalance(), depositBalanceDTO.getAddAmount());
             return new ResponseEntity(newBalanceDTO, HttpStatus.OK);
         }
         else{

@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/all")
     public @ResponseBody Iterable<User> getAllUsers() {
-        // This returns a JSON or XML with the users
+        // This returns a JSON with the users
         return userRepository.findAll();
     }
 }

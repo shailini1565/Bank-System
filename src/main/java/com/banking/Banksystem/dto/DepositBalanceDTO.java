@@ -1,11 +1,10 @@
 package com.banking.Banksystem.dto;
 
-public class BalanceDTO {
+public class DepositBalanceDTO {
 
    private String accountNo;
-
-   private int amount;
    private int balance;
+   private int addAmount;
     public String getAccountNo() {
         return accountNo;
     }
@@ -22,19 +21,20 @@ public class BalanceDTO {
         this.balance = balance;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getAddAmount() {
+        return addAmount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setAmount(int addAmount) {
+        this.addAmount = addAmount;
     }
 
-    public BalanceDTO() {
+    public DepositBalanceDTO() {
     }
 
-    public BalanceDTO(String accountNo,  int balance) {
+    public DepositBalanceDTO(String accountNo, int balance, int addAmount) {
         this.accountNo = accountNo;
         this.balance = balance;
+        this.addAmount = addAmount;
     }
 }

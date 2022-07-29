@@ -2,16 +2,13 @@ package com.banking.Banksystem.service;
 
 import com.banking.Banksystem.dto.NewAccountDTO;
 import com.banking.Banksystem.model.User;
-import com.banking.Banksystem.repository.NewAccountRepository;
 import com.banking.Banksystem.repository.UserRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
-import java.util.logging.Logger;
 
 @Service
 public class NewAccountService {

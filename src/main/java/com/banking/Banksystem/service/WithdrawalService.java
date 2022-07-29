@@ -1,6 +1,5 @@
 package com.banking.Banksystem.service;
 
-import com.banking.Banksystem.dto.BalanceDTO;
 import com.banking.Banksystem.dto.WithdrawalBalanceDTO;
 import com.banking.Banksystem.model.User;
 import com.banking.Banksystem.repository.UserRepository;
@@ -19,14 +18,14 @@ public class WithdrawalService {
         if(userRepository.existsByAccountNo(withdrawalBalanceDTO.getAccountNo())) {
 
             User user = userRepository.findUserByAccountNo(withdrawalBalanceDTO.getAccountNo());
-            if (user.getBalance() >= withdrawalBalanceDTO.getAmount()) {
-                int amount = user.getBalance() - withdrawalBalanceDTO.getAmount();
-                User updateUser = new User(user.getFirstName(), user.getLastName(), user.getAddress(), user.getUsername(), user.getPassword(),
-                        user.getAccountNo(), amount);
-                userRepository.delete(user);
-                userRepository.save(updateUser);
-                System.out.println("Updated Amount: " + updateUser.getBalance());
-                BalanceDTO newBalanceDTO = new BalanceDTO(user.getAccountNo(), updateUser.getBalance());
+            if (user.getBalance() >= withdrawalBalanceDTO.getWithdrawalAmount()) {
+                int removeAmount = user.getBalance() - withdrawalBalanceDTO.getWithdrawalAmount();
+                user.setBalance(removeAmount);
+                userRepository.save(user);
+
+                System.out.println("Updated Amount: " + user.getBalance());
+                WithdrawalBalanceDTO newBalanceDTO = new WithdrawalBalanceDTO(user.getAccountNo(), user.getBalance(),
+                                                                              withdrawalBalanceDTO.getWithdrawalAmount());
                 return new ResponseEntity(newBalanceDTO, HttpStatus.OK);
             }
             else{

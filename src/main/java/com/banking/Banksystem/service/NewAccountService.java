@@ -25,13 +25,18 @@ public class NewAccountService {
                 newAccountDTO.getUsername(),newAccountDTO.getPassword(),accountNo,newAccountDTO.getBalance());
 
         if(!userRepository.existsByUsername(newUser.getUsername())) {
-            userRepository.save(newUser);
-            System.out.println("data save..");
-            NewAccountDTO accountDTO = new NewAccountDTO(newUser.getFirstName(), newUser.getLastName(), newUser.getAddress(),
-                    newUser.getUsername(), newUser.getPassword()
-                    , newUser.getAccountNo(), newUser.getBalance());
+            if (newUser.getUsername().length() >= 6) {
+                userRepository.save(newUser);
+                System.out.println("data save..");
+                NewAccountDTO accountDTO = new NewAccountDTO(newUser.getFirstName(), newUser.getLastName(), newUser.getAddress(),
+                        newUser.getUsername(), newUser.getPassword()
+                        , newUser.getAccountNo(), newUser.getBalance());
 
-            return new ResponseEntity(accountDTO, HttpStatus.OK);
+                return new ResponseEntity(accountDTO, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("User Name can Not be less than 6 Characters",HttpStatus.BAD_REQUEST);
+            }
         }
         else{
             return new ResponseEntity("User Name Already Exists",HttpStatus.BAD_REQUEST);

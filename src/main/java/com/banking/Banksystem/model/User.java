@@ -1,6 +1,7 @@
 package com.banking.Banksystem.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="users")
@@ -20,6 +21,7 @@ public class User {
     private String address;
 
     @Column(name = "username", unique = true)
+    @Size(min =6,message= "Username can Not be less than 6 Characters")
     private String username;
 
     @Column(name="password")
